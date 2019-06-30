@@ -52,7 +52,7 @@ namespace KttK.HspDecompiler
 			
 		}
 		
-		private readonly static string exeDir = Path.GetDirectoryName(Application.ExecutablePath) + @"\";
+		private readonly static string exeDir = Path.GetDirectoryName(Application.ExecutablePath) + Path.DirectorySeparatorChar;
 		private readonly static string exeName = Path.GetFileName(Application.ExecutablePath);
 		private readonly static System.Diagnostics.FileVersionInfo exeVer =
 			System.Diagnostics.FileVersionInfo.GetVersionInfo(Application.ExecutablePath);
