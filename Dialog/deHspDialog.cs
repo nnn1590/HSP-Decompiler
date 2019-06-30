@@ -60,7 +60,7 @@ namespace KttK.HspDecompiler
 			txtBoxMainInfo.Text = "";
 			global::KttK.HspDecompiler.HspConsole.DecompStart(filePath);
 			HspDecoder decoder = new HspDecoder();
-			string dirName = Path.GetDirectoryName(filePath) + @"\";
+			string dirName = Path.GetDirectoryName(filePath) + Path.DirectorySeparatorChar;
 			string inputFileName = Path.GetFileNameWithoutExtension(filePath);
 			int i = 1;
 			string errorPath = filePath + ".log";
@@ -78,7 +78,7 @@ namespace KttK.HspDecompiler
 				reader.BaseStream.Seek(0, SeekOrigin.Begin);
 				if (bufStr.StartsWith("MZ", StringComparison.Ordinal) || bufStr.StartsWith("DPM", StringComparison.Ordinal))
 				{
-					dirName = Path.GetDirectoryName(filePath) + @"\" + inputFileName;
+					dirName = Path.GetDirectoryName(filePath) + Path.DirectorySeparatorChar + inputFileName;
 					i = 1;
 					while (Directory.Exists(dirName))
 					{
@@ -86,7 +86,7 @@ namespace KttK.HspDecompiler
 						i++;
 					}
 					errorPath = dirName + ".log";
-					dirName = dirName + @"\";
+					dirName = dirName + Path.DirectorySeparatorChar;
 					decoder.DecompressDpm(reader, this.dpmFileList, dirName);
 				}
 				else if (bufStr.StartsWith("HSP2", StringComparison.Ordinal)||bufStr.StartsWith("HSP3", StringComparison.Ordinal))
