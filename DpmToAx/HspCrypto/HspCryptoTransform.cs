@@ -1,12 +1,12 @@
 #if AllowDecryption
 
 using System;
-using System.IO; // ’Ç‰Á
+using System.IO; // è¿½åŠ 
 using System.Collections.Generic;
 using System.Text;
 using System.Security.Cryptography;
-using KttK.HspDecompiler.Ax2ToAs;  // ’Ç‰Á
-using KttK.HspDecompiler.Ax3ToAs;  // ’Ç‰Á
+using KttK.HspDecompiler.Ax2ToAs;  // è¿½åŠ 
+using KttK.HspDecompiler.Ax3ToAs;  // è¿½åŠ 
 namespace KttK.HspDecompiler.DpmToAx.HspCrypto
 {
 	class HspCryptoTransform
@@ -75,7 +75,7 @@ namespace KttK.HspDecompiler.DpmToAx.HspCrypto
 		{
 			int count = Math.Min(plain.Length, encrypted.Length);
 			if (count < 2)
-				throw new Exception("î•ñƒTƒCƒY‚ª•s‘«");
+				throw new Exception("æƒ…å ±ã‚µã‚¤ã‚ºãŒä¸è¶³");
 			byte[] difBuffer = new byte[count];
 			//byte baseXor = plain[0];
 			byte prevByte = 0;
@@ -90,10 +90,10 @@ namespace KttK.HspDecompiler.DpmToAx.HspCrypto
 				orByte |= difBuffer[i];
 			}
 			if ((andByte != 0x00) || (orByte != 0xFF))
-				throw new Exception("•½•¶‚Ìî•ñ‚ª‘«‚è‚Ü‚¹‚ñ");
+				throw new Exception("å¹³æ–‡ã®æƒ…å ±ãŒè¶³ã‚Šã¾ã›ã‚“");
 
 			List<XorAddTransform> transformList = new List<XorAddTransform>();
-			//deHSP100@‘“–‚èƒeƒXƒgB
+			//deHSP100ã€€ç·å½“ã‚Šãƒ†ã‚¹ãƒˆã€‚
 			for (int i = 0; i < 0x100; i++)
 			{
 				XorAddTransform xoradd;
@@ -102,7 +102,7 @@ namespace KttK.HspDecompiler.DpmToAx.HspCrypto
 				xoradd.XorSum = (i >= 0x80);
 				xoradd.AddByte = add;
 				xoradd.XorByte = XorAddTransform.GetXorByte(add, difBuffer[0], encrypted[0], xoradd.XorSum);
-				//ƒ`ƒFƒbƒN
+				//ãƒã‚§ãƒƒã‚¯
 				for (int index = 1; index < count; index++)
 				{
 					if (encrypted[index] != xoradd.Encode(difBuffer[index]))
@@ -138,9 +138,9 @@ namespace KttK.HspDecompiler.DpmToAx.HspCrypto
 					}
 				}
 			}
-			//Œó•â‚ª2‚ÂˆÈã‚È‚çƒAƒ‹ƒSƒŠƒYƒ€‚É–â‘èƒAƒŠB
+			//å€™è£œãŒ2ã¤ä»¥ä¸Šãªã‚‰ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã«å•é¡Œã‚¢ãƒªã€‚
 			if (transformList.Count > 1)
-				throw new Exception("•œ†Ší‚ÌˆÙí");
+				throw new Exception("å¾©å·å™¨ã®ç•°å¸¸");
 			if (transformList.Count == 1)
 			{
 				HspCryptoTransform ret = new HspCryptoTransform();
